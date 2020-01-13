@@ -63,8 +63,9 @@ void loop(){
             client.println("<style>body { text-align: center; font-family: \"Trebuchet MS\", Arial; margin-left:auto; margin-right:auto;}");
             client.println(".slider { width: 300px; }</style>");
             client.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>");
-            client.println("</head><body><h1>ESP32 with Servo</h1>");
+            client.println("</head><body><h1>NodeMcu with Servo</h1>");
 
+            //Servo 1
             client.println("<p>Position: <span id=\"servoPos1\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider1\" id=\"servoSlider1\" onchange=\"servo1(this.value)\" value=\""+valueString1+"\"/>");         
             client.println("<script>var slider1 = document.getElementById(\"servoSlider1\");");
@@ -73,6 +74,7 @@ void loop(){
             client.println("$.ajaxSetup({timeout:1000}); function servo1(pos) { ");
             client.println("$.get(\"/?value1=\" + pos + \"&\"); {Connection: close};}</script>");
 
+            //Servo 2
             client.println("<p>Position: <span id=\"servoPos2\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider2\" id=\"servoSlider2\" onchange=\"servo2(this.value)\" value=\""+valueString2+"\"/>");         
             client.println("<script>var slider2 = document.getElementById(\"servoSlider2\");");
@@ -81,6 +83,7 @@ void loop(){
             client.println("$.ajaxSetup({timeout:1000}); function servo2(pos) { ");
             client.println("$.get(\"/?value2=\" + pos + \"&\"); {Connection: close};}</script>");
 
+            //Servo 3
             client.println("<p>Position: <span id=\"servoPos3\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider3\" id=\"servoSlider3\" onchange=\"servo3(this.value)\" value=\""+valueString3+"\"/>");         
             client.println("<script>var slider3 = document.getElementById(\"servoSlider3\");");
@@ -89,6 +92,7 @@ void loop(){
             client.println("$.ajaxSetup({timeout:1000}); function servo3(pos) { ");
             client.println("$.get(\"/?value3=\" + pos + \"&\"); {Connection: close};}</script>");
 
+            //Servo 4
             client.println("<p>Position: <span id=\"servoPos4\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider4\" id=\"servoSlider4\" onchange=\"servo4(this.value)\" value=\""+valueString4+"\"/>");         
             client.println("<script>var slider4 = document.getElementById(\"servoSlider4\");");
@@ -98,7 +102,6 @@ void loop(){
             client.println("$.get(\"/?value4=\" + pos + \"&\"); {Connection: close};}</script>");
             client.println("</body></html>");     
 
-            //GET /?value=180& HTTP/1.1
             if(header.indexOf("GET /?value1=")>=0) {
               pos1 = header.indexOf('=');
               pos2 = header.indexOf('&');
@@ -126,7 +129,7 @@ void loop(){
               
               //Rotate the servo
               myservo3.write(valueString3.toInt());
-              Serial.println("Second "+valueString3); 
+              Serial.println("Third "+valueString3); 
             }
 
             if(header.indexOf("GET /?value4=")>=0) {
@@ -136,7 +139,7 @@ void loop(){
               
               //Rotate the servo
               myservo4.write(valueString4.toInt());
-              Serial.println("Second "+valueString4); 
+              Serial.println("Fourth "+valueString4); 
             }                        
             // The HTTP response ends with another blank line
             client.println();
