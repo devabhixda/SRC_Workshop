@@ -1,6 +1,8 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
-#include <WiFiManager.h>
+
+const char* ssid     = "ESP8266-Access-Point";
+const char* password = "123456789";
 
 Servo myservo1;
 Servo myservo2;
@@ -26,8 +28,8 @@ int pos7 = 0;
 int pos8 = 0;
 void setup() {
   Serial.begin(115200);
-  WiFiManager wifiManager;
-  wifiManager.autoConnect("SRC");
+  WiFi.softAP(ssid, password);
+  IPAddress IP = WiFi.softAPIP();
   myservo1.attach(servoPin1);
   myservo2.attach(servoPin2);
   myservo3.attach(servoPin3);
@@ -37,6 +39,7 @@ void setup() {
   Serial.println("");
   Serial.println("WiFi connected.");
   Serial.println("IP address: ");
+  Serial.println(IP);  
   Serial.println(WiFi.localIP());
   server.begin();
 }
