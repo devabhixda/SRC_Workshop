@@ -1,17 +1,17 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "ESP8266-Access-Point";
-const char* password = "123456789";
+const char* ssid     = "SRC Acrobot"; //Replace with unique ssid here
+const char* password = "123456789"; //Replace with your desired password
 
 Servo myservo1;
 Servo myservo2;
 Servo myservo3;
-Servo myservo4;
+
 static const int servoPin1 = 13;
 static const int servoPin2 = 14;
 static const int servoPin3 = 12;
-static const int servoPin4 = 15;
+
 WiFiServer server(80);
 String header;
 String valueString1 = String(5);
