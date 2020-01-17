@@ -53,42 +53,54 @@ void loop(){
           if (currentLine.length() == 0) {
 
             if(header.indexOf("GET /left")>=0) {
-              servo1--;
+              if(servo1>10){
+                servo1=servo1-10;
+              }
               //Rotate the servo
               myservo1.write(servo1);
               Serial.println(servo1); 
             }
             
             if(header.indexOf("GET /right")>=0) {
-              servo1++;
+              if(servo1<180){
+                servo1=servo1+10;
+              }
               //Rotate the servo
               myservo1.write(servo1);
               Serial.println(servo1); 
             }            
 
             if(header.indexOf("GET /forward")>=0) {
-              servo2--;
+              if(servo2>10){
+                servo2=servo2-10;
+              }
               //Rotate the servo
               myservo1.write(servo2);
               Serial.println(servo2); 
             }
             
             if(header.indexOf("GET /backward")>=0) {
-              servo2++;
+              if(servo2<180){
+                servo2=servo2+10;
+              }
               //Rotate the servo
               myservo1.write(servo2);
               Serial.println(servo2); 
             }
 
             if(header.indexOf("GET /clawopen")>=0) {
-              servo3--;
+              if(servo3>10){
+                servo3=servo3-10;
+              }
               //Rotate the servo
               myservo1.write(servo3);
               Serial.println(servo3); 
             }
             
             if(header.indexOf("GET /clawclose")>=0) {
-              servo3++;
+              if(servo3<180){
+                servo3=servo3+10;
+              }
               //Rotate the servo
               myservo1.write(servo3);
               Serial.println(servo3); 
