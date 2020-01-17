@@ -14,10 +14,6 @@ static const int servoPin3 = 12;
 
 WiFiServer server(80);
 String header;
-String valueString1 = String(5);
-String valueString2 = String(5);
-String valueString3 = String(5);
-String valueString4 = String(5);
 int servo1 = 90;
 int servo2 = 90;
 int servo3 = 90;
@@ -28,7 +24,6 @@ void setup() {
   myservo1.attach(servoPin1);
   myservo2.attach(servoPin2);
   myservo3.attach(servoPin3);
-  myservo4.attach(servoPin4);
   Serial.print("Connecting to ");
   // Print local IP address and start web server
   Serial.println("");
