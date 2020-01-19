@@ -1,8 +1,8 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
-
-const char* ssid     = "ESP8266-Access-Point"; //Team Name
-const char* password = "123456789"; //Wifi password
+#include <DNSServer.h>            //Local DNS Server used for redirecting all requests to the configuration portal
+#include <ESP8266WebServer.h>     //Local WebServer used to serve the configuration portal
+#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager WiFi Configuration Magic
 
 //Declare 3 servos
 Servo myservo1;
@@ -31,19 +31,24 @@ int pos3 = 0;
 int pos4 = 0;
 int pos5 = 0;
 int pos6 = 0;
+
+WiFiClient client;
+
 void setup() {
   Serial.begin(115200);
-  WiFi.softAP(ssid, password);
-  IPAddress IP = WiFi.softAPIP();
-
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("SRC");
+  WiFi.setSleepMode(WIFI_NONE_SLEEP);
+  
   // attaches the servo on the servoPin to the servo object
   myservo1.attach(servoPin1);
   myservo2.attach(servoPin2);
   myservo3.attach(servoPin3);
 
   // Print local IP address and start web server
-  Serial.println();
-  Serial.println(IP);  
+  Serial.println("WiFi connected");
+  Serial.println("IP address: "); 
+  Serial.println(WiFi.localIP());
   server.begin();
 }
 
@@ -80,6 +85,7 @@ void loop(){
             client.println("</head><body><h1>Acrobot</h1>");
 
             //Servo 1
+            client.println("<h3>Base Motion</h3>");
             client.println("<p>Position: <span id=\"servoPos1\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider\" id=\"servoSlider1\" onchange=\"servo1(this.value)\" value=\""+valueString1+"\"/>");         
             client.println("<script>var slider1 = document.getElementById(\"servoSlider1\");");
@@ -89,8 +95,9 @@ void loop(){
             client.println("$.get(\"/?value1=\" + pos + \"&\"); {Connection: close};}</script>");
 
             //Servo 2
+            client.println("<h3>Claw Motion</h3>");
             client.println("<p>Position: <span id=\"servoPos2\"></span></p>");          
-            client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider\" id=\"servoSlider2\" onchange=\"servo2(this.value)\" value=\""+valueString2+"\"/>");         
+            client.println("<input type=\"range\" min=\"0\" max=\"100\" class=\"slider\" id=\"servoSlider2\" onchange=\"servo2(this.value)\" value=\""+valueString2+"\"/>");         
             client.println("<script>var slider2 = document.getElementById(\"servoSlider2\");");
             client.println("var servoP2 = document.getElementById(\"servoPos2\"); servoP2.innerHTML = slider2.value;");
             client.println("slider2.oninput = function() { slider2.value = this.value; servoP2.innerHTML = this.value; }");
@@ -98,6 +105,7 @@ void loop(){
             client.println("$.get(\"/?value2=\" + pos + \"&\"); {Connection: close};}</script>");
 
             //Servo 3
+            client.println("<h3>Elbow Motion</h3>");
             client.println("<p>Position: <span id=\"servoPos3\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider\" id=\"servoSlider3\" onchange=\"servo3(this.value)\" value=\""+valueString3+"\"/>");         
             client.println("<script>var slider3 = document.getElementById(\"servoSlider3\");");
