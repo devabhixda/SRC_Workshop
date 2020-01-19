@@ -1,8 +1,8 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
-
-const char* ssid     = "SRC Acrobot"; //Replace with unique ssid here
-const char* password = "123456789"; //Replace with your desired password
+#include <DNSServer.h>            //Local DNS Server used for redirecting all requests to the configuration portal
+#include <ESP8266WebServer.h>     //Local WebServer used to serve the configuration portal
+#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager WiFi Configuration Magic
 
 Servo myservo1;
 Servo myservo2;
@@ -19,18 +19,19 @@ int servo2 = 90;
 int servo3 = 90;
 void setup() {
   Serial.begin(115200);
-  WiFi.softAP(ssid, password);
-  IPAddress IP = WiFi.softAPIP();
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("SRC");
+  WiFi.setSleepMode(WIFI_NONE_SLEEP);
+  
   myservo1.attach(servoPin1);
   myservo2.attach(servoPin2);
   myservo3.attach(servoPin3);
   Serial.print("Connecting to ");
   // Print local IP address and start web server
   Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
-  Serial.println(IP);  
-  Serial.println(WiFi.localIP()); 
+  Serial.println("WiFi connected");
+  Serial.println("IP address: "); 
+  Serial.println(WiFi.localIP());
   server.begin();
 }
 
