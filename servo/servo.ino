@@ -71,7 +71,7 @@ void loop(){
                 servo2=servo2-10;
               }
               //Rotate the servo
-              myservo1.write(servo2);
+              myservo3.write(servo2);
               Serial.println(servo2); 
             }
             
@@ -80,7 +80,7 @@ void loop(){
                 servo2=servo2+10;
               }
               //Rotate the servo
-              myservo1.write(servo2);
+              myservo3.write(servo2);
               Serial.println(servo2); 
             }
 
@@ -89,7 +89,7 @@ void loop(){
                 servo3=servo3-10;
               }
               //Rotate the servo
-              myservo1.write(servo3);
+              myservo2.write(servo3);
               Serial.println(servo3); 
             }
             
@@ -98,7 +98,7 @@ void loop(){
                 servo3=servo3+10;
               }
               //Rotate the servo
-              myservo1.write(servo3);
+              myservo2.write(servo3);
               Serial.println(servo3); 
             }  
                                    
